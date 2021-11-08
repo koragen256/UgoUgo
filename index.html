@@ -3,13 +3,16 @@
 <style>
     html,
     body {
-        overflow: hidden
+        overflow: hidden;
+        touch-action: manipulation;
     }
 </style>
 
 <header>
     <title>UOUO</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
     <script src="sketch.js"></script>
 
@@ -18,5 +21,12 @@
 <body bgcolor="#000000">
     <a href="javascript:setup()">さくじょ</a>
 </body>
+<script>
+    document.addEventListener('touchstart', event => {
+        if (event.touches.length > 1) {
+            event.preventDefault();
+        }
+    }, true);
+</script>
 
 </html>
