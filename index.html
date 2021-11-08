@@ -1,27 +1,93 @@
 <html>
 
 <style>
+    @font-face {
+        font-family: 'APJ';
+        src: url('APJapanesefont.ttf');
+    }
+
     html,
     body {
         overflow: hidden;
         touch-action: manipulation;
+        user-select: none;
+        font-size: 30px;
+        font-family: APJ;
+    }
+
+    a {
+        color: white;
+    }
+    h1 {
+        color: white;
+    }
+
+    .a-light {
+        background-color: black;
+    }
+
+    .noselect {
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
     }
 </style>
 
 <header>
-    <title>UOUA</title>
+    <title>UOGOUOGO</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.min.js"></script>
+    <script src="https://unpkg.com/p5.createloop@0.2.8/dist/p5.createloop.js"></script>
     <script src="sketch.js"></script>
 
 </header>
 
 <body bgcolor="#000000">
-    <a href="javascript:setup()">さくじょ</a>
+    <div style="display: none;" id=menu>
+        <a href="javascript:setup()">さくじょ</a>
+        <br>
+        <a href="javascript:sGif()" id=saveE>せーぶ</a>
+        <br>
+        <a href="javascript:changebg()" id=haike>はいけい[ぶらっく]</a>
+        <br>
+        <a href="javascript:changchoten()" id=sLen>あらさ[2]]</a>
+        <br>
+        <a href="javascript:changesize()" id=futosa>ふとさ[4]</a>
+        <br>
+    </div>
+
+    <a href="javascript:hyouzi()" id=menubutton vis=true>[+]</a>
+    <br>
+    <a href="javascript:togglecol()" style="color: rgb(255, 255, 255);" id=colbutton>いろへんこー</a>
+    <br>
+    <a href="javascript:undo()" style="color: #6fbdf1;" id=andu>あんでぅー</a>
+
+
 </body>
 <script>
+    function hyouzi() {
+        if (menubutton.vis) {
+            menu.style.display = "inline";
+            menubutton.text = "[-]"
+        } else {
+            menu.style.display = "none";
+            menubutton.text = "[+]"
+        }
+        menubutton.vis = !menubutton.vis;
+
+    }
     document.addEventListener('touchstart', event => {
         if (event.touches.length > 1) {
             event.preventDefault();
