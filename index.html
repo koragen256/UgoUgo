@@ -11,13 +11,40 @@
         overflow: hidden;
         touch-action: manipulation;
         user-select: none;
+
         font-size: 30px;
         font-family: APJ;
+
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        touch-callout: none;
     }
 
     a {
         color: white;
+        -webkit-touch-callout: none;
+        /* iOS Safari */
+        -webkit-user-select: none;
+        /* Safari */
+        -khtml-user-select: none;
+        /* Konqueror HTML */
+        -moz-user-select: none;
+        /* Firefox */
+        -ms-user-select: none;
+        /* Internet Explorer/Edge */
+        user-select: none;
+        touch-callout: none;
     }
+
     h1 {
         color: white;
     }
@@ -40,6 +67,11 @@
         user-select: none;
         /* Non-prefixed version, currently
                                   supported by Chrome and Opera */
+    }
+
+    .select-none {
+        user-select: none;
+        touch-callout: none;
     }
 </style>
 
@@ -64,11 +96,15 @@
         <br>
         <a href="javascript:changchoten()" id=sLen>あらさ[2]]</a>
         <br>
+        <a href="javascript:changev()" id=sVaib>ゆれはば[3]</a>
+        <br>
         <a href="javascript:changesize()" id=futosa>ふとさ[4]</a>
         <br>
     </div>
 
     <a href="javascript:hyouzi()" id=menubutton vis=true>[+]</a>
+    <br>
+    <a href="javascript:toggletool()" style="color: rgb(255, 255, 255);" id=toolmode>ぺん</a>
     <br>
     <a href="javascript:togglecol()" style="color: rgb(255, 255, 255);" id=colbutton>いろへんこー</a>
     <br>
