@@ -40,7 +40,7 @@ const coltable = [[255, 255, 255],
 [255, 000, 166],
 ]
 
-let vaib = 10;
+let vaib = 3;
 let spaceLen = 20;
 
 
