@@ -73,6 +73,23 @@
         user-select: none;
         touch-callout: none;
     }
+
+    .parent {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .child1 {
+        margin: 4px;
+        padding: 4px;
+        text-align: left;
+    }
+
+    .child2 {
+        margin: 4px;
+        padding: 4px;
+        text-align: right;
+    }
 </style>
 
 <header>
@@ -87,28 +104,36 @@
 </header>
 
 <body bgcolor="#000000">
-    <div style="display: none;" id=menu>
-        <a href="javascript:setup()">さくじょ</a>
-        <br>
-        <a href="javascript:sGif()" id=saveE>せーぶ</a>
-        <br>
-        <a href="javascript:changebg()" id=haike>はいけい[ぶらっく]</a>
-        <br>
-        <a href="javascript:changchoten()" id=sLen>あらさ[2]]</a>
-        <br>
-        <a href="javascript:changev()" id=sVaib>ゆれはば[3]</a>
-        <br>
-        <a href="javascript:changesize()" id=futosa>ふとさ[4]</a>
-        <br>
-    </div>
+    <div class=parent>
+        <div class=child1>
+            <div style="display: none;" id=menu>
+                <a href="javascript:setup()">さくじょ</a>
+                <br>
+                <a href="javascript:sGif()" id=saveE>せーぶ</a>
+                <br>
+                <a href="javascript:changebg()" id=haike>はいけい[ぶらっく]</a>
+                <br>
+                <a href="javascript:changchoten()" id=sLen>あらさ[2]</a>
+                <br>
+                <a href="javascript:changev()" id=sVaib>ゆれはば[3]</a>
+                <br>
+                <a href="javascript:changesize()" id=futosa>ふとさ[4]</a>
+                <br>
+            </div>
 
-    <a href="javascript:hyouzi()" id=menubutton vis=true>[+]</a>
-    <br>
-    <a href="javascript:toggletool()" style="color: rgb(255, 255, 255);" id=toolmode>ぺん</a>
-    <br>
-    <a href="javascript:togglecol()" style="color: rgb(255, 255, 255);" id=colbutton>いろへんこー</a>
-    <br>
-    <a href="javascript:undo()" style="color: #6fbdf1;" id=andu>あんでぅー</a>
+            <a href="javascript:hyouzi()" id=menubutton vis=true>[+]</a>
+            <br>
+            <a href="javascript:toggletool()" style="color: rgb(255, 255, 255);" id=toolmode>ぺん</a>
+            <br>
+            <a href="javascript:togglecol()" style="color: rgb(255, 255, 255);" id=colbutton>いろへんこー</a>
+            <br>
+            <a href="javascript:undo()" style="color: #6fbdf1;" id=andu>あんでぅー</a>
+
+
+        </div>
+        <div class=child2>
+        </div>
+    </div>
 
 
 </body>

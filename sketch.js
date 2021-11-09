@@ -104,7 +104,7 @@ async function sGif() {
     createCanvas(windowWidth, windowHeight);
     frameRate(12);
     saveE.text = "せーぶちゅうだよ";
-    createLoop({ duration: 2, gif: { fileName: "UGO.gif", render: false, open: true, download: true } });
+    createLoop({ duration: 1, gif: { fileName: "UGO.gif", render: false, open: true, download: true } });
 }
 
 function changebg() {
@@ -158,7 +158,7 @@ function toggletool() {
     if (ispen) {
         toolmode.text = "ぺん";
     } else {
-        toolmode.text = "いれいざー";
+        toolmode.text = "けしごむ";
     }
 }
 
