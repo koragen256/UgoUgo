@@ -29,7 +29,8 @@
         touch-callout: none;
     }
 
-    a {
+    a,
+    input {
         color: white;
         -webkit-touch-callout: none;
         /* iOS Safari */
@@ -111,6 +112,10 @@
                 <br>
                 <a href="javascript:sGif()" id=saveE>せーぶ</a>
                 <br>
+                <a href="javascript:togglesitagaki()" id=sitagaki>したがきもーど[ ]</a>
+                <br>
+                <a href="javascript:togglesitagakiVisibility()" id=sitagakiv>したがきひょうじ[ ]</a>
+                <br>
                 <a href="javascript:changebg()" id=haike>はいけい[ぶらっく]</a>
                 <br>
                 <a href="javascript:changchoten()" id=sLen>あらさ[2]</a>
@@ -154,6 +159,16 @@
             event.preventDefault();
         }
     }, true);
+
+    window.addEventListener("orientationchange", function () {
+        alert("画面を回転てもロード時のキャンバスの範囲にしか描画できないため元の方向にすることをお勧めします。ごめんなさい！");
+    });
+    window.addEventListener("resize", function () {
+        alert("画面のサイズを変更してもロード時のキャンバスの範囲にしか描画できません。ごめんなさい！");
+    });
+    window.onload = function () {
+        alert("Alpha版なので色々不具合があるかもしれません！ごめんなさい！by @koragen_7");
+    };
 </script>
 
 </html>

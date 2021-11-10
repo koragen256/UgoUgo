@@ -1,9 +1,13 @@
 let lines = [];
+let sitalines = [];
+
 let tlines = [];
 let linebuffer = [];
 let draggingline = [];
 let isDragged = false;
 let ErasedFlag = false;
+let Sitagaki = false;
+let SVisibility = true;
 let myh;
 let mxh;
 
@@ -15,8 +19,9 @@ let ispen = true;
 
 let canvas;
 
-let history=[];
-let lhistory=[];
+let history = [];
+let lhistory = [];
+let slhistory = [];
 
 const BGcoltable = [[000, 000, 000, false, "ぶらっく"],
 [178, 178, 178, true, "ぬくぬく"],
@@ -153,6 +158,28 @@ function togglecol() {
     console.log("#" + r + g + b + ";");
 }
 
+function togglesitagaki() {
+    Sitagaki = !Sitagaki;
+    if (Sitagaki) {
+        SVisibility=true;
+        sitagaki.text = "したがきもーど[X]";
+        sitagakiv.text = "したがきひょうじ[X]";
+    } else {
+        sitagaki.text = "したがきもーど[ ]";
+    }
+}
+
+function togglesitagakiVisibility() {
+    SVisibility = !SVisibility;
+    if (SVisibility) {
+        sitagakiv.text = "したがきひょうじ[X]";
+    } else {
+        Sitagaki=false;
+        sitagaki.text = "したがきもーど[ ]";
+        sitagakiv.text = "したがきひょうじ[ ]";
+    }
+}
+
 function toggletool() {
     ispen = !ispen;
     if (ispen) {
@@ -169,13 +196,20 @@ function keyPressed() {
 }
 
 function undo() {
-    if(history.length==0)return;
-    if(history[history.length-1]==0){
+    if (history.length == 0) return;
+    if (history[history.length - 1] == 0) {
         lines.pop();
         history.pop();
-    }else{
-        lines=lhistory[lhistory.length-1];
+    } else if (history[history.length - 1] == -1) {
+        sitalines.pop();
+        history.pop();
+    } else if (history[history.length - 1] == 1){
+        lines = lhistory[lhistory.length - 1];
         lhistory.pop();
+        history.pop();
+    }else{
+        sitalines = slhistory[slhistory.length - 1];
+        slhistory.pop();
         history.pop();
     }
 }
@@ -212,30 +246,49 @@ function mouseDragged() {
         if (!isDragged) {
             isDragged = true;
         } else {
-            let cp = new Circle(new Point(mouseX, mouseY), esize);
-            if(!ErasedFlag){
-                tlines=lines.concat();
+            if(!Sitagaki){
+                let cp = new Circle(new Point(mouseX, mouseY), esize);
+                if (!ErasedFlag) {
+                    tlines = lines.concat();
+                }
+                let ef = false;
+                lines.forEach((l, lindex) => {
+                    l.forEach((x, index) => {
+                        let line_start_p = new Point(x[0], x[1]);
+                        let line_end_p = new Point(x[2], x[3]);
+    
+                        if (circleColLine(cp, new Line(line_start_p, line_end_p)) && !ef) {
+                            line(x[0], x[1], x[2], x[3])
+                            ErasedFlag = true;
+                            ef = true;
+                            lines[lindex] = [];//erase
+                            lines.push(l.slice(index + 1));
+                            lines.push(l.slice(0, index));
+                        }
+                    })
+                })
+            }else{
+                let cp = new Circle(new Point(mouseX, mouseY), esize);
+                if (!ErasedFlag) {
+                    tlines = sitalines.concat();
+                }
+                let ef = false;
+                sitalines.forEach((l, lindex) => {
+                    l.forEach((x, index) => {
+                        let line_start_p = new Point(x[0], x[1]);
+                        let line_end_p = new Point(x[2], x[3]);
+    
+                        if (circleColLine(cp, new Line(line_start_p, line_end_p)) && !ef) {
+                            line(x[0], x[1], x[2], x[3])
+                            ErasedFlag = true;
+                            ef = true;
+                            sitalines[lindex] = [];//erase
+                            sitalines.push(l.slice(index + 1));
+                            sitalines.push(l.slice(0, index));
+                        }
+                    })
+                })
             }
-            let ef=false;
-            lines.forEach((l, lindex) => {
-                l.forEach((x, index) => {
-                    let line_start_p = new Point(x[0], x[1]);
-                    let line_end_p = new Point(x[2], x[3]);
-
-                    if (circleColLine(cp, new Line(line_start_p, line_end_p))&&!ef) {
-                        line(x[0], x[1],x[2], x[3])
-                        console.log(lines);
-                        console.log(l);
-                        console.log(x);
-                        console.log("------");
-                        ErasedFlag=true;
-                        ef=true;
-                        lines[lindex]=[];//erase
-                        lines.push(l.slice(index+1));
-                        lines.push(l.slice(0,index));
-                    }
-                  })
-            })
         }
 
     }
@@ -244,20 +297,30 @@ function mouseDragged() {
 
 function mouseReleased() {
     if (ispen) {
-        if (linebuffer.length > 0) {
-            lines.push(linebuffer);//draw
-            history.push(0);
+        if (linebuffer.length > 0) {//draw
+            if (!Sitagaki) {
+                lines.push(linebuffer);
+                history.push(0);
+            } else {
+                sitalines.push(linebuffer);
+                history.push(-1);
+            }
         }
         linebuffer = [];
         draggingline = [];
-    }else{
-        if(ErasedFlag){
-            lhistory.push(tlines.filter(n => n.length));
-            history.push(1);
+    } else {
+        if (ErasedFlag) {
+            if(!Sitagaki){
+                lhistory.push(tlines.filter(n => n.length));
+                history.push(1);
+            }else{
+                slhistory.push(tlines.filter(n => n.length));
+                history.push(2);
+            }
         }
     }
     isDragged = false;
-    ErasedFlag=false;
+    ErasedFlag = false;
 }
 
 function GetdistSqrt(x0, y0, x1, y1) {
@@ -300,6 +363,7 @@ function circleColLine(circleP, lineAB) {
 
 function draw() {
     lines = lines.filter(n => n.length);
+    sitalines = sitalines.filter(n => n.length);
     background(BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0]);
     stroke(255);
 
@@ -307,11 +371,30 @@ function draw() {
 
     if (!ispen && isDragged) {
         noFill();
-        circle(mouseX, mouseY, esize*2);
+        circle(mouseX, mouseY, esize * 2);
     }
     //circle(width*0.1,height-width*0.1,width*0.1);
+    if(SVisibility){
+        for (let l of sitalines) {
+            let xt = l[0][0] + random(-vaib, vaib);
+            let yt = l[0][1] + random(-vaib, vaib);
+            for (let x of l) {
+                stroke(coltable[x[4]][0], coltable[x[4]][1], coltable[x[4]][2]);
+                let tx = x[2] + random(-vaib, vaib);
+                let ty = x[3] + random(-vaib, vaib);
+                strokeWeight(x[5]);
+                line(xt, yt, tx, ty);
+                xt = tx;
+                yt = ty;
+    
+    
+            }
+        }
+        background(BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0], 200);
+    }
 
     for (let l of lines) {
+        push();
         let xt = l[0][0] + random(-vaib, vaib);
         let yt = l[0][1] + random(-vaib, vaib);
         for (let x of l) {
@@ -325,12 +408,19 @@ function draw() {
 
 
         }
+        pop();
     }
 
     for (let x of draggingline) {
         strokeWeight(x[5]);
-        stroke(coltable[seleColindex][0], coltable[seleColindex][1], coltable[seleColindex][2]);
+        if(!Sitagaki){
+            stroke(coltable[seleColindex][0], coltable[seleColindex][1], coltable[seleColindex][2]);
+        }else{
+            stroke(coltable[seleColindex][0], coltable[seleColindex][1], coltable[seleColindex][2],20);
+        }
+        
         line(x[0], x[1], x[2], x[3]);
+        
     }
 
 }
