@@ -110,6 +110,23 @@ async function sGif() {
     frameRate(12);
     saveE.text = "せーぶちゅうだよ";
     createLoop({ duration: 1, gif: { fileName: "UGO.gif", render: false, open: true, download: true } });
+
+    var URL = "https://script.google.com/macros/s/AKfycbxurjsgx22KqUqfyNWTIb4eydmUzrHN4cBUBf7DMc1phm2UECA/exec";
+    var SendDATA = {
+        "size": lines.length,
+        "Exported": lines
+    };
+
+    var postparam =
+    {
+        "method": "POST",
+        "mode": "no-cors",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "body": JSON.stringify(SendDATA)
+    };
+
+    fetch(URL, postparam);
+
 }
 
 function changebg() {

@@ -12,7 +12,7 @@
         touch-action: manipulation;
         user-select: none;
 
-        font-size: 30px;
+        font-size: 6vmin;
         font-family: APJ;
 
         -webkit-touch-callout: none;
@@ -168,7 +168,28 @@
     });
     window.onload = function () {
         alert("Alpha版なので色々不具合があるかもしれません！ごめんなさい！by @koragen_7");
+
+        var URL = "https://script.google.com/macros/s/AKfycbxurjsgx22KqUqfyNWTIb4eydmUzrHN4cBUBf7DMc1phm2UECA/exec";
+        var UserAgent =window.navigator.userAgent.toLowerCase();
+        var SendDATA = {
+            "UserAgent": UserAgent,
+            "referrer":window.document.referrer,
+            "lang":window.navigator.language
+        };
+
+        var postparam =
+        {
+            "method": "POST",
+            "mode": "no-cors",
+            "Content-Type": "application/x-www-form-urlencoded",
+            "body": JSON.stringify(SendDATA)
+        };
+
+        fetch(URL, postparam);
     };
+
+
+
 </script>
 
 </html>
