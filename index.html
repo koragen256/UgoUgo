@@ -161,10 +161,10 @@
     }, true);
 
     window.addEventListener("orientationchange", function () {
-        alert("画面を回転てもロード時のキャンバスの範囲にしか描画できないため元の方向にすることをお勧めします。ごめんなさい！");
+        alert("画面を回転してもロード時のキャンバスの範囲にしか描画できないため元の方向にするか再読み込みすることをお勧めします。");
     });
     window.addEventListener("resize", function () {
-        alert("画面のサイズを変更してもロード時のキャンバスの範囲にしか描画できません。ごめんなさい！");
+        alert("画面のサイズを変更してもロード時のキャンバスの範囲にしか描画できません。");
     });
     window.onload = function () {
         alert("Alpha版なので色々不具合があるかもしれません！ごめんなさい！by @koragen_7");
@@ -191,5 +191,27 @@
 
 
 </script>
+
+<script>
+    /* ピッチインピッチアウトによる拡大縮小を禁止 */
+    document.documentElement.addEventListener('touchstart', function (e) {
+    if (e.touches.length >= 2) {e.preventDefault();}
+    }, {passive: false});
+    /* ダブルタップによる拡大を禁止 */
+    var t = 0;
+    document.documentElement.addEventListener('touchend', function (e) {
+    var now = new Date().getTime();
+    if ((now - t) < 350){
+      e.preventDefault();
+    }
+    t = now;
+    }, false);
+  </script>
+  <style>
+    body , input , textarea , select {
+    /* 入力欄にフォーカスが当たっても拡大しない */
+      font-size:17px;
+    }
+  </style>
 
 </html>

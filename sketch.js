@@ -49,6 +49,7 @@ let vaib = 3;
 let spaceLen = 20;
 
 
+
 class Point {
     constructor(_x, _y) {
         this.x = _x;
@@ -112,6 +113,7 @@ async function sGif() {
     createLoop({ duration: 1, gif: { fileName: "UGO.gif", render: false, open: true, download: true } });
 
     var URL = "https://script.google.com/macros/s/AKfycbxurjsgx22KqUqfyNWTIb4eydmUzrHN4cBUBf7DMc1phm2UECA/exec";
+    
     var SendDATA = {
         "size": lines.length,
         "Exported": lines
@@ -237,6 +239,7 @@ function setup() {
     canvas = createCanvas(windowWidth, windowHeight);
     canvas.position(0, 0);//canvasをページの原点に固定
     canvas.style('z-index', '-1');//canvasを後ろに移動する
+    
     frameRate(12);
     background(0);
 
@@ -382,6 +385,11 @@ function draw() {
     lines = lines.filter(n => n.length);
     sitalines = sitalines.filter(n => n.length);
     background(BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0], BGcoltable[bgcolindex][0]);
+
+    if(touches.length==3){
+        undo();
+    }
+
     stroke(255);
 
     fill(coltable[seleColindex][0], coltable[seleColindex][1], coltable[seleColindex][2]);
