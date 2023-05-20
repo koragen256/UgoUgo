@@ -56,12 +56,10 @@ class Point {
         this.y = _y;
     }
 
-    // 引数の位置へ向かうベクトルを求める
     getVecPoint(p) {
         return new Vec(p.x - this.x, p.y - this.y);
     }
 }
-
 
 class Vec {
     constructor(_x, _y) {
@@ -85,7 +83,6 @@ class Vec {
     }
 }
 
-
 class Line {
     constructor(_start_p, _end_p) {
         this.start_p = _start_p;
@@ -106,7 +103,6 @@ class Circle {
 }
 
 async function sGif() {
-    console.log("asas");
     createCanvas(windowWidth, windowHeight);
     frameRate(12);
     saveE.text = "せーぶちゅうだよ";
@@ -233,6 +229,13 @@ function undo() {
     }
 }
 
+function RresetButton(){
+    let t = window.confirm("本当にすべて削除してもよろしいですか？")
+    if(t){
+        setup();
+    }
+}
+
 
 function setup() {
 
@@ -347,14 +350,13 @@ function GetdistSqrt(x0, y0, x1, y1) {
     return Math.sqrt((x0 - x1) ** 2 + (y0 - y1) ** 2);
 }
 
-var judgeIentersected = function (ax, ay, bx, by, cx, cy, dx, dy) {
+function judgeIentersected(ax, ay, bx, by, cx, cy, dx, dy) {
     var ta = (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax);
     var tb = (cx - dx) * (by - cy) + (cy - dy) * (cx - bx);
     var tc = (ax - bx) * (cy - ay) + (ay - by) * (ax - cx);
     var td = (ax - bx) * (dy - ay) + (ay - by) * (ax - dx);
 
     return tc * td < 0 && ta * tb < 0;
-    // return tc * td <= 0 && ta * tb <= 0; // 端点を含む場合
 }
 
 function circleColLine(circleP, lineAB) {
@@ -398,7 +400,6 @@ function draw() {
         noFill();
         circle(mouseX, mouseY, esize * 2);
     }
-    //circle(width*0.1,height-width*0.1,width*0.1);
     if(SVisibility){
         for (let l of sitalines) {
             let xt = l[0][0] + random(-vaib, vaib);
